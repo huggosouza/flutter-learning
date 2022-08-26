@@ -1,34 +1,21 @@
 import 'dart:io';
 
 main(){
-  var weight;
-  var height;
 
 /* ------------------ WEIGHT -------------------------*/
   print("=== Type your weight: ");
-  var textWeight = stdin.readLineSync();
-
-  if(textWeight != null){
-    weight = int.parse(textWeight);
-  }
-  else{
-    print("Can't be null!");
-  }
+  var weight = stdin.readLineSync();
+  var dWeight = double.parse(weight!);
 
 /* ------------------ HEIGHT -------------------------*/
   print("=== Type your height: ");
-  var textHeight = stdin.readLineSync();
+  var height = stdin.readLineSync();
+  var dHeight = double.parse(height!);
 
-  if(textHeight != null){
-    height = int.parse(textHeight);
-  }
-  else{
-    print("Can't be null!");
-  }
 /* ------------------ CALC ---------------------------*/
 
-  var calc = weight / (height * height);
+  var calc = dWeight / (dHeight * dHeight);
+  
 
-  print("== Your IMC is: " + calc);
-
+  print("== Your IMC is: ${calc}");
 }
