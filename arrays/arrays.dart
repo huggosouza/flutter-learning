@@ -14,7 +14,17 @@ void main() {
       break;
     } else{
       if (text != null){
-        nome.add(text);
+        if (text == "exit") {
+          exit(0);
+        }
+        else if (text == "showall"){
+          nome.forEach((element) {
+            print(element);
+          });
+        }
+        else {
+          nome.add(text);
+        }
       }
       else{
         print("text can't be null");
