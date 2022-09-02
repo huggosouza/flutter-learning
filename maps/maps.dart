@@ -1,42 +1,64 @@
 import 'dart:io';
 
-Map<String, dynamic> cadastre = {};
+List<Map<String, dynamic>> cadastres = [];
 void main() {
-  bool condition = true;
-  while (condition = true) {
-    print("Type your command to the system: ");
-    String command = stdin.readLineSync()!;
-    if (command == "exit") {
-      exit(0);
-    } else if (command == "register") {
-      clearTerm();
-      register();
-    } else if (command == "print") {
-      clearTerm();
-      print(cadastre);
+  var condition = true;
+  while (condition == true) {
+    print("Type 'menu' or 'exit': ");
+    if (stdin.readLineSync()! == "menu") {
+      print(
+          "\x1B[2J\x1B[0;0H\n====== MENU ======\n1 - Add\n2 - Show last cadastre\n3 - Show all\n4 - Remove\n5 - exit");
+      switch (stdin.readLineSync()) {
+        case "1":
+          clearTerm();
+          print("Adding.");
+          var name, age, city, state;
+          print("Name: ");
+          name = stdin.readLineSync();
+          print("Age: ");
+          age = stdin.readLineSync();
+          print("City: ");
+          city = stdin.readLineSync();
+          print("State: ");
+          state = stdin.readLineSync();
+          register(name, age, city, state);
+          break;
+        case "3":
+          clearTerm();
+          print("Showing all.");
+          cadastres.forEach((element) {
+            print(element);
+          });
+          break;
+        case "4":
+          clearTerm();
+          print("Removing.");
+          print("Which cadastre do you want to remove ? ");
+          print("0 - ${cadastres.length - 1}");
+          var rmvCadindex = int.parse(stdin.readLineSync()!);
+          cadastres.removeAt(rmvCadindex);
+          break;
+        case "5":
+          print("Exiting.");
+          condition = false;
+          exit(0);
+        default:
+      }
     } else {
-      print("Invalid command!");
+      condition = false;
+      exit(0);
     }
   }
 }
 
-void register() {
-  clearTerm();
-  print("Type your name: ");
-  cadastre["name"] = stdin.readLineSync();
+void register(name, age, city, state) {
+  Map<String, dynamic> cadastre = {};
+  cadastre["Name"] = name;
+  cadastre["Age"] = age;
+  cadastre["City"] = city;
+  cadastre["State"] = state;
 
-  clearTerm();
-  print("Type your age: ");
-  cadastre["age"] = stdin.readLineSync();
-
-  clearTerm();
-  print("Type your town: ");
-  cadastre["town"] = stdin.readLineSync();
-
-  clearTerm();
-  print("Type your state: ");
-  cadastre["state"] = stdin.readLineSync();
-  ;
+  cadastres.add(cadastre);
 }
 
 void clearTerm() {
